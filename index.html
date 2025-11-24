@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Kiến tạo tương lai — Tư duy phản biện & Tư duy tích cực</title>
+    <meta
+      name="description"
+      content="Trang học tương tác về rèn luyện tư duy phản biện và tư duy tích cực: lý thuyết, ví dụ, bài tập có tương tác, tài nguyên tham khảo."
+    />
+    <style>
+      :root {
+        --bg: #0f1724;
+        --card: #0b1220;
+        --accent: #7dd3fc;
+        --muted: #94a3b8;
+        --glass: rgba(255, 255, 255, 0.04);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, Segoe UI, Roboto,
+          "Helvetica Neue", Arial;
+        line-height: 1.5;
+        color: #e6eef8;
+        background: linear-gradient(180deg, #071026 0%, #0b1220 60%);
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 22px 28px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        position: sticky;
+        top: 0;
+        background: linear-gradient(180deg, rgba(2, 6, 23, 0.6), transparent);
+        backdrop-filter: blur(6px);
+        z-index: 40;
+      }
+      .brand {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+      }
+      .logo {
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, var(--accent), #60a5fa);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #05233a;
+        font-weight: 700;
+        font-size: 18px;
+      }
+      nav a {
+        color: var(--muted);
+        text-decoration: none;
+        margin-left: 14px;
+        font-weight: 600;
+      }
+      nav a:hover {
+        color: var(--accent);
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 30px auto;
+        padding: 0 18px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 22px;
+      }
+
+      /* Sidebar */
+      .toc {
+        position: sticky;
+        top: 82px;
+        padding: 18px;
+        border-radius: 12px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          transparent
+        );
+        box-shadow: 0 6px 18px rgba(2, 6, 23, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.03);
+      }
+      .toc h3 {
+        margin: 0 0 12px 0;
+        color: var(--accent);
+      }
+      .toc ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .toc li {
+        margin: 8px 0;
+      }
+      .toc a {
+        color: var(--muted);
+        font-size: 14px;
+        text-decoration: none;
+      }
+      .toc a:hover {
+        color: #fff;
+      }
+
+      /* Main */
+      main {
+        min-height: 60vh;
+      }
+      .card {
+        background: var(--card);
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        box-shadow: 0 8px 30px rgba(2, 6, 23, 0.6);
+      }
+      h1 {
+        margin: 0 0 12px 0;
+        font-size: 22px;
+        color: #fff;
+      }
+      h2 {
+        color: var(--accent);
+        margin-top: 0;
+      }
+      p.lead {
+        color: var(--muted);
+        margin-top: 6px;
+      }
+
+      .split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      .example {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          transparent
+        );
+        padding: 12px;
+        border-radius: 10px;
+      }
+      .meta {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 8px;
+      }
+
+      /* Interactive exercises */
+      .exercise {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .choices {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .choice {
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        cursor: pointer;
+      }
+      .choice:hover {
+        border-color: var(--accent);
+      }
+      .choice.correct {
+        border-color: green;
+        background: linear-gradient(
+          90deg,
+          rgba(16, 185, 129, 0.06),
+          transparent
+        );
+      }
+      .choice.wrong {
+        border-color: #ef4444;
+        background: linear-gradient(
+          90deg,
+          rgba(239, 68, 68, 0.04),
+          transparent
+        );
+      }
+      button.btn {
+        background: var(--accent);
+        border: 0;
+        padding: 10px 14px;
+        border-radius: 8px;
+        color: #05233a;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      /* Cards list */
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 12px;
+      }
+      .card-small {
+        padding: 14px;
+      }
+
+      footer {
+        margin: 30px 0 60px;
+        color: var(--muted);
+        font-size: 13px;
+        text-align: center;
+      }
+
+      /* Responsive */
+      @media (max-width: 900px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .toc {
+          position: relative;
+          top: 0;
+          margin-bottom: 12px;
+        }
+      }
+
+      /* subtle animations */
+      .fade-in {
+        animation: fadeIn 0.6s ease both;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="brand">
+        <div class="logo">KT</div>
+        <div>
+          <div style="font-weight: 700; color: #fff">Kiến tạo tương lai</div>
+          <div style="font-size: 13px; color: var(--muted)">
+            Rèn luyện tư duy phản biện & tư duy tích cực
+          </div>
+        </div>
+      </div>
+      <nav>
+        <a href="#overview">Tổng quan</a>
+        <a href="#critical">Tư DuyPhản biện</a>
+        <a href="#positive">Tư Duy Tích cực</a>
+        <a href="#practice">Bài tập </a>
+      </nav>
+    </header>
+
+    <div class="container">
+      <div class="grid">
+        <aside class="toc card fade-in" aria-label="Mục lục">
+          <h3>Mục lục</h3>
+          <ul>
+            <li><a href="#overview">1. Tổng quan & Tiêu chí</a></li>
+            <li>
+              <a href="#critical">2. Tư duy phản biện (lý thuyết & ví dụ)</a>
+            </li>
+            <li>
+              <a href="#positive">3. Tư duy tích cực (lý thuyết & ví dụ)</a>
+            </li>
+            <li><a href="#practice">4. Bài tập tương tác & Luyện tập</a></li>
+            <li><a href="#tools">5. Công cụ & Kế hoạch rèn luyện</a></li>
+          </ul>
+        </aside>
+
+        <main>
+          <section id="overview" class="card fade-in">
+            <h1>Tổng quan & Tiêu chí dự án</h1>
+            <p class="lead">
+              Mục tiêu: tạo một nền tảng nhỏ, khoa học và có tính ứng dụng để
+              rèn luyện tư duy phản biện và tư duy tích cực. Trang này tuân theo
+              các tiêu chí: nội dung chính xác - sáng tạo - có ứng dụng thực tế
+              - trình bày chuyên nghiệp.
+            </p>
+            <figure>
+        <img src="https://vinuni.edu.vn/wp-content/uploads/2025/08/6-cach-giup-ban-ren-luyen-tu-duy-phan-bien-moi-ngay-hinh-1.jpg" alt="tuduypha">
+        <figcaption>Nguồn: vinuni.edu.vn</figcaption>
+
+            <div class="split">
+              <div>
+                <h2>Bản chất tư phản biện,tích cực</h2>
+                <p>
+                  <strong>Tư duy phản biện</strong> là năng lực phân tích thông
+                  tin, đánh giá bằng chứng, nhận ra giả định và đưa ra kết luận
+                  hợp lý.
+                </p>
+                <p>
+                  <strong>Tư duy tích cực</strong> là năng lực điều chỉnh nhận
+                  thức để tập trung vào giải pháp, sức mạnh cá nhân và các hành
+                  động có lợi cho mục tiêu.
+                </p>
+                <p class="meta">
+                  Phương pháp: dựa trên nghiên cứu tâm lý học nhận thức, giáo
+                  dục (ví dụ: Bloom's Taxonomy, Kahneman, D. Ariely). Các ví dụ
+                  và bài tập kèm theo có nguồn tham khảo ở cuối.
+                </p>
+              </div>
+              <div>
+                <h2>Vai trò và ứng dụng</h2>
+                <ul>
+                  <li>
+                    Tránh sai lầm: Giúp phân biệt thông tin chính xác và sai
+                    lệch, tránh đưa ra quyết định vội vàng dựa trên tin đồn hoặc
+                    thông tin không xác thực.
+                  </li>
+                  <li>
+                    Thúc đẩy sáng tạo: Khuyến khích nhìn nhận vấn đề từ nhiều
+                    góc độ, từ đó đề xuất những giải pháp độc đáo và sáng tạo.
+                  </li>
+                  <li>
+                    Tạo động lực: Giúp con người duy trì động lực và sự kiên trì
+                    khi đối mặt với thử thách, thúc đẩy sự sáng tạo và khả năng
+                    giải quyết vấn đề.
+                  </li>
+                  <li>
+                    Tăng cường sức khỏe tinh thần: Giúp giảm căng thẳng, lo lắng
+                    và cải thiện tâm trạng, góp phần xây dựng một cuộc sống khỏe
+                    mạnh và hạnh phúc hơn.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+          <section id="critical" class="card fade-in" style="margin-top: 18px">
+            <h2>Tư duy phản biện — Lý thuyết & Ví dụ minh họa</h2>
+            <p class="lead">
+              Phân tích mô hình: nhận diện giả thiết — kiểm tra bằng chứng —
+              đánh giá độ tin cậy — rút ra kết luận kèm mức độ tự tin.
+            </p>
+
+            <article class="example">
+              <h3>Ví dụ: Bản tin lan truyền về chế độ dinh dưỡng</h3>
+              <p>
+                Giả sử một bài báo tuyên bố "Ăn chuối mỗi ngày giảm 50% nguy cơ
+                X". Các bước phản biện:
+              </p>
+              <ol>
+                <li>Nhận diện nguồn: tác giả, tạp chí, tổ chức tài trợ?</li>
+                <li>
+                  Kiểm tra bằng chứng: thử nghiệm lâm sàng hay khảo sát? Kích
+                  thước mẫu? Kiểm soát yếu tố gây nhiễu?
+                </li>
+                <li>
+                  Đánh giá tính logic: có hiệu ứng ngẫu nhiên? Kết luận có vượt
+                  quá dữ liệu không?
+                </li>
+                <li>So sánh với các nghiên cứu khác, meta-analytic.</li>
+              </ol>
+              <p class="meta">
+                Ví dụ này minh họa quy trình áp dụng tư duy phản biện vào thông
+                tin phổ biến.
+              </p>
+            </article>
+
+            <h3 style="margin-top: 12px">Công cụ thực hành tư duy phản biện</h3>
+            <div class="cards" aria-hidden>
+              <div class="card-small card">
+                <h4>Checklist 6 câu hỏi</h4>
+                <ol style="padding-left: 18px">
+                  <li>Xác định câu chủ đề</li>
+                  <li>Tóm tắt luận điểm chính</li>
+                  <li>Tìm bằng chứng và hỗ trợ</li>
+                  <li>Kết nối với các câu khác</li>
+                  <li>Đánh giá luận điểm</li>
+                </ol>
+              </div>
+
+              <div class="card-small card">
+                <h4>Ví dụ phân tích luận điểm</h4>
+                <p>
+                  Câu: "Sự phát triển của công nghệ thông tin đã mang lại nhiều lợi ích cho cuộc sống, như giúp con người kết nối dễ dàng hơn và tiếp cận thông tin nhanh chóng hơn."<br>
+                  Phân tích : Luận điểm chính :Công nghệ thông tin mang lại nhiều lợi ích <br>
+                  Kiểm chứng : Công nghệ dễ dàng tiếp cận thông tin nhanh chóng (Biểu hiện từ người đến trẻ con nếu sử dụng công nghệ có thể tiếp nhận thông tin như facebook, youtube,..)<br>
+                  Mối liên hệ : Câu này có thể là mối liên hệ với các câu hỏi khác.<br>
+                  Đánh giá luận điểm: mang tính đúng 90%.
+                </p>
+              </div>
+            </div>
+          </section>
+          <figure>
+    <img src="https://vinuni.edu.vn/wp-content/uploads/2025/08/tu-duy-phan-bien-la-gi-1.jpeg" alt="tuduyphanbien">
+    <figcaption>Nguồn: vinuni.edu.vn</figcaption>
+    </figure>
+
+          <section id="positive" class="card fade-in" style="margin-top: 18px">
+            <h2>Tư duy tích cực — Lý thuyết & Ví dụ</h2>
+            <p class="lead">
+              Tư duy tích cực không phải là lạc quan mù quáng mà là tập trung
+              vào giải pháp, phân tích lợi thế và hành động dựa trên thực tế.
+            </p>
+
+            <article class="example">
+              <h3>Ví dụ hành động</h3>
+              <p>
+                Một học sinh bị điểm kém: thay vì tự trách mắng, áp dụng tư duy
+                tích cực bằng cách phân tích nguyên nhân (thiếu luyện tập,
+                phương pháp học sai), đặt mục tiêu nhỏ (mỗi ngày 30 phút), phản
+                hồi liên tục và điều chỉnh.
+              </p>
+            </article>
+            <h3 style="margin-top: 12px">Kỹ thuật rèn luyện</h3>
+            <ul>
+              <li>
+                Ghi nhật ký 3 điều tốt mỗi ngày (đã được nghiên cứu cải thiện
+                tâm trạng).
+              </li>
+              <li>
+                Reframing: chuyển đổi câu chuyện tiêu cực thành vấn đề cụ thể có
+                thể giải quyết.
+              </li>
+              <li>
+                Mô phỏng kịch bản: lập danh sách hành động cụ thể khi gặp trở
+                ngại.
+              </li>
+            </ul>
+          </section>
+      <figure>
+        <img src="https://media-blog.jobsgo.vn/blog/wp-content/uploads/2019/07/tu-duy-tich-cuc.jpg" alt="tuduyphanbien">
+        <figcaption>Nguồn: JobsGo</figcaption>
+      </figure>
+          <section id="practice" class="card fade-in" style="margin-top: 18px">
+            <h2>Bài tập tương tác & Luyện tập</h2>
+            <p class="lead">
+              Các bài tập dưới đây có thể thực hiện ngay trên trang và lưu kết
+              quả để theo dõi tiến bộ.
+            </p>
+
+            <div class="exercise" id="quiz-root">
+              <h3>Bài kiểm tra nhanh — Phản biện</h3>
+              <p id="quiz-question">Đang tải câu hỏi...</p>
+              <div id="quiz-choices" class="choices"></div>
+              <div style="display: flex; gap: 8px; margin-top: 8px">
+                <button class="btn" id="submit-quiz">Nộp</button>
+                <button
+                  class="btn"
+                  id="next-quiz"
+                  style="
+                    background: transparent;
+                    color: var(--accent);
+                    border: 1px solid rgba(255, 255, 255, 0.04);
+                  "
+                >
+                  Câu khác
+                </button>
+              </div>
+              <div
+                id="quiz-feedback"
+                class="meta"
+                style="min-height: 38px"
+              ></div>
+            </div>
+
+            <hr
+              style="
+                margin: 18px 0;
+                border: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.03);
+              "
+            />
+
+            <div>
+              <h3>Bài tập viết — Nhật ký phản tư (lưu local)</h3>
+              <p class="meta">
+                Ghi nhanh 2-3 suy nghĩ trong ngày; hệ thống sẽ lưu trên trình
+                duyệt.
+              </p>
+              <textarea
+                id="journal"
+                rows="5"
+                style="
+                  width: 100%;
+                  padding: 12px;
+                  border-radius: 8px;
+                  border: 1px solid rgba(255, 255, 255, 0.04);
+                  background: transparent;
+                  color: #e6eef8;
+                "
+              ></textarea>
+              <div style="display: flex; gap: 8px; margin-top: 8px">
+                <button class="btn" id="save-journal">Lưu</button>
+                <button
+                  class="btn"
+                  id="clear-journal"
+                  style="
+                    background: transparent;
+                    color: var(--accent);
+                    border: 1px solid rgba(255, 255, 255, 0.04);
+                  "
+                >
+                  Xóa
+                </button>
+              </div>
+              <div id="journal-list" style="margin-top: 12px"></div>
+            </div>
+
+            <hr
+              style="
+                margin: 18px 0;
+                border: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.03);
+              "
+            />
+
+            <div>
+              <h3>Bài tập phân tích luận điểm (tương tác)</h3>
+              <p>
+                Nhập một câu hỏi  ngắn; hệ thống trả về checklist đánh giá và
+                gợi ý câu cách tư duy phản biện phản biện.
+              </p>
+              <input
+                id="claim-input"
+                placeholder="Nhập câu hỏi (ví dụ: 'Uống trà xanh chữa được X đúng hoàn toàn  hay chỉ đúng một phần ')"
+                style="
+                  width: 100%;
+                  padding: 10px;
+                  border-radius: 8px;
+                  border: 1px solid rgba(255, 255, 255, 0.04);
+                  background: transparent;
+                  color: #e6eef8;
+                "
+              />
+              <div style="display: flex; gap: 8px; margin-top: 8px">
+                <button class="btn" id="analyze-claim">Phân tích</button>
+              </div>
+              <div id="claim-output" style="margin-top: 12px"></div>
+            </div>
+          </section>
+
+          <footer>
+            Phiên bản 1.1 (đang cập nhật)
+          </footer>
+        </main>
+      </div>
+    </div>
+
+    <script>
+      // --- Data: sample quiz bank (phản biện) ---
+      const quizBank = [
+        {
+          q: "Trong bối cảnh công nghệ phát triển nhanh chóng, việc sử dụng các công nghệ mới có luôn mang lại lợi ích vượt trội so với phương pháp truyền thống không?",
+          choices: [
+            "A. Có, công nghệ mới luôn hiệu quả hơn phương pháp truyền thống.",
+            "B. Có, vì công nghệ mới giúp tăng năng suất, giảm chi phí và tạo ra nhiều cơ hội mới",
+            "C. Không hẳn, vì việc áp dụng công nghệ mới còn phụ thuộc vào nhiều yếu tố như chi phí đầu tư, khả năng thích ứng của con người và các rủi ro tiềm ẩn.",
+            "D. Không, vì công nghệ mới thường đắt đỏ và khó sử dụng hơn các phương pháp truyền thống.",
+          ],
+          answer: 2,
+          explain:
+            "thể hiện tư duy phản biện, xem xét nhiều khía cạnh khác nhau thay vì chỉ chấp nhận một quan điểm duy nhất",
+        },
+        {
+          q: "Uống nước ép cần tây mỗi ngày sẽ chữa được 90% bệnh dạ dày mà không cần thuốc. Rất nhiều người đã thử và chia sẻ kết quả tích cực",
+          choices: [
+            "A.Tin ngay vì có “rất nhiều người” đã thử và nói có hiệu quả.",
+            "B.Bác bỏ ngay vì nghe có vẻ vô lý, không cần kiểm tra thêm.",
+            "C.Tin theo một phần vì bệnh dạ dày thường liên quan đến thói quen ăn uống.",
+            "D.Kiểm tra xem bài báo có dẫn chứng khoa học, nghiên cứu kiểm chứng, nguồn độc lập và số liệu cụ thể hay không.",
+          ],
+          answer: 3,
+          explain:
+            "Đáp án D đưa ra dẫn chứng rõ ràng, mạch lạc đảm bảo kiểm tra thông tin",
+        },
+        {
+          q:"Ăn một muỗng mật ong pha nước ấm mỗi sáng sẽ giúp tăng trí nhớ và cải thiện kết quả học tập trong vòng 2 tuần.",
+          choices: [
+              "A.Kiểm tra xem có nghiên cứu khoa học, thử nghiệm lâm sàng hoặc dữ liệu đáng tin nào chứng minh mối liên hệ giữa mật ong và khả năng cải thiện trí nhớ hay không.",
+              "B.Cho rằng sai vì nghe quá tốt nên chắc chắn lừa đảo.",
+              "C.Tin ngay vì người nổi tiếng có kinh nghiệm và ảnh hưởng lớn.",
+              "D.Tin một phần vì mật ong tốt cho sức khỏe nên chắc cũng tốt cho trí nhớ.",
+          ],
+          answer: 0,
+          explain:
+           "Câu A với các bước kiểm tra chặt chẽ từ đó mới khẳng địng được vấn đề.",
+        },
+      ];
+
+      // Quiz UI
+      const qText = document.getElementById("quiz-question");
+      const qChoices = document.getElementById("quiz-choices");
+      const submitBtn = document.getElementById("submit-quiz");
+      const nextBtn = document.getElementById("next-quiz");
+      const feedback = document.getElementById("quiz-feedback");
+      let currentIndex = 0,
+        selected = -1;
+
+      function renderQuiz(i) {
+        const item = quizBank[i];
+        qText.textContent = item.q;
+        qChoices.innerHTML = "";
+        item.choices.forEach((c, idx) => {
+          const d = document.createElement("div");
+          d.className = "choice";
+          d.tabIndex = 0;
+          d.textContent = c;
+          d.onclick = () => {
+            selectChoice(idx);
+          };
+          d.onkeydown = (e) => {
+            if (e.key === "Enter") selectChoice(idx);
+          };
+          qChoices.appendChild(d);
+        });
+        feedback.textContent = "";
+        selected = -1;
+      }
+      function selectChoice(i) {
+        selected = i;
+        Array.from(qChoices.children).forEach((el, idx) => {
+          el.classList.toggle("selected", idx === i);
+        });
+      }
+      submitBtn.onclick = () => {
+        if (selected === -1) {
+          feedback.textContent = "Hãy chọn một đáp án trước khi nộp.";
+          return;
+        }
+        const item = quizBank[currentIndex];
+        Array.from(qChoices.children).forEach((el, idx) => {
+          el.classList.remove("correct", "wrong");
+          if (idx === item.answer) el.classList.add("correct");
+          if (idx === selected && idx !== item.answer)
+            el.classList.add("wrong");
+        });
+        feedback.innerHTML = "<strong>Giải thích:</strong> " + item.explain;
+      };
+      nextBtn.onclick = () => {
+        currentIndex = (currentIndex + 1) % quizBank.length;
+        renderQuiz(currentIndex);
+      };
+      renderQuiz(currentIndex);
+
+      // --- Journal (localStorage) ---
+      const journalEl = document.getElementById("journal");
+      const saveBtn = document.getElementById("save-journal");
+      const clearBtn = document.getElementById("clear-journal");
+      const listEl = document.getElementById("journal-list");
+      const STORAGE_KEY = "kt_journal_entries_v1";
+
+      function loadJournal() {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        const arr = raw ? JSON.parse(raw) : [];
+        listEl.innerHTML = "";
+        arr
+          .slice()
+          .reverse()
+          .forEach((it, idx) => {
+            const d = document.createElement("div");
+            d.className = "card-small card";
+            d.style.marginBottom = "8px";
+            d.innerHTML = `<div style=\"font-size:13px;color:var(--muted);\">${new Date(
+              it.t
+            ).toLocaleString()}</div><div style=\"margin-top:6px\">${escapeHtml(
+              it.text
+            )}</div>`;
+            listEl.appendChild(d);
+          });
+      }
+      function escapeHtml(s) {
+        return s
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;");
+      }
+      saveBtn.onclick = () => {
+        const v = journalEl.value.trim();
+        if (!v) {
+          alert("Nhập một ghi chú trước khi lưu");
+          return;
+        }
+        const raw = localStorage.getItem(STORAGE_KEY);
+        const arr = raw ? JSON.parse(raw) : [];
+        arr.push({ t: Date.now(), text: v });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+        journalEl.value = "";
+        loadJournal();
+      };
+      clearBtn.onclick = () => {
+        if (confirm("Xóa toàn bộ nhật ký?")) {
+          localStorage.removeItem(STORAGE_KEY);
+          loadJournal();
+        }
+      };
+      loadJournal();
+
+      // --- Claim analyzer (simple heuristic generator) ---
+      const claimInput = document.getElementById("claim-input");
+      const analyzeBtn = document.getElementById("analyze-claim");
+      const claimOutput = document.getElementById("claim-output");
+      analyzeBtn.onclick = () => {
+        const text = (claimInput.value || "").trim();
+        if (!text) {
+          claimOutput.innerHTML =
+            '<div class="meta">Nhập tuyên bố để phân tích.</div>';
+          return;
+        }
+        const prompts = [
+          "Điều đó có đúng không? Có dẫn chứng không?",
+          "Bằng chứng là loại nào (thử nghiệm, khảo sát, ý kiến cá nhân), có được kiểm chứng chưa?",
+          "Có giải thích thay thế hoặc yếu tố gây nhiễu?",
+          "Mức độ chắc chắn (rất chắc / cần thêm bằng chứng / không đáng tin)?",
+        ];
+        claimOutput.innerHTML = `<div class=\"card-small card\"><strong>Câu hỏi:</strong> ${escapeHtml(
+          text
+        )}<ul style=\"margin-top:8px;padding-left:18px\">${prompts
+          .map((p) => "<li>" + p + "</li>")
+          .join("")}</ul></div>`;
+      };
+
+      // --- Download plan: simple print window ---
+      document.getElementById("download-plan").onclick = () => {
+        const win = window.open("", "_blank");
+
+        win.document.write(html);
+        win.document.close();
+        win.focus();
+        setTimeout(() => win.print(), 300);
+      };
+
+      // Accessibility: enable keyboard selection of choices
+      document.addEventListener("keydown", (e) => {
+        if (
+          document.activeElement &&
+          document.activeElement.classList &&
+          document.activeElement.classList.contains("choice")
+        )
+          return;
+        if (e.key === "q")
+          document.getElementById("quiz-choices").firstChild?.focus();
+      });
+
+      // graceful fallback note (console)
+      console.log("Demo trang tư duy đã sẵn sàng.");
+    </script>
+  </body>
+</html>
